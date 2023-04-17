@@ -5,6 +5,7 @@
 >
   {{ 'section-main-product.css' | asset_url | stylesheet_tag }}
   {{ 'component-accordion.css' | asset_url | stylesheet_tag }}
+  {{ 'component-usp.css' | asset_url | stylesheet_tag }}
   {{ 'component-price.css' | asset_url | stylesheet_tag }}
   {{ 'component-slider.css' | asset_url | stylesheet_tag }}
   {{ 'component-rating.css' | asset_url | stylesheet_tag }}
@@ -128,21 +129,25 @@
                         <circle cx="7.5" cy="7.5" r="7.5" fill="rgb(238,148,65, 0.3)"/>
                         <circle cx="7.5" cy="7.5" r="5" stroke="rgb(255, 255, 255)" stroke-width="1" fill="rgb(238,148,65)"/>
                       </svg>
+                      <span style="color:orange">
                       {%- if block.settings.show_inventory_quantity -%}
                         {{- 'products.product.inventory_low_stock_show_count' | t: quantity: product.selected_or_first_available_variant.inventory_quantity -}}
                       {%- else -%}
                         {{- 'products.product.inventory_low_stock' | t -}}
                       {%- endif -%}
+                      </span>
                     {%- else -%}
                       <svg width="15" height="15" aria-hidden="true">
                         <circle cx="7.5" cy="7.5" r="7.5" fill="rgb(62,214,96, 0.3)"/>
                         <circle cx="7.5" cy="7.5" r="5" stroke="rgb(255, 255, 255)" stroke-width="1" fill="rgb(62,214,96)"/>
                       </svg>
+                      <span style="color:green">
                       {%- if block.settings.show_inventory_quantity -%}
                         {{- 'products.product.inventory_in_stock_show_count' | t: quantity: product.selected_or_first_available_variant.inventory_quantity -}}
                       {%- else -%}
                           {{- 'products.product.inventory_in_stock' | t -}}
                       {%- endif -%}
+                      </span>
                     {%- endif -%}
                   {%- else -%}
                     {%- if product.selected_or_first_available_variant.inventory_policy == 'continue' -%}
@@ -153,10 +158,12 @@
                       {{- 'products.product.inventory_out_of_stock_continue_selling' | t -}}
                     {%- else -%}
                       <svg width="15" height="15" aria-hidden="true">
-                        <circle cx="7.5" cy="7.5" r="7.5" fill="rgb(200,200,200, 0.3)"/>
-                        <circle cx="7.5" cy="7.5" r="5" stroke="rgb(255, 255, 255)" stroke-width="1" fill="rgb(200,200,200)"/>
+                        <circle cx="7.5" cy="7.5" r="7.5" fill="rgb(200,0,0, 0.3)"/>
+                        <circle cx="7.5" cy="7.5" r="5" stroke="rgb(255, 255, 255)" stroke-width="1" fill="rgb(200,0,0)"/>
                       </svg>
+                      <span style="color:red">
                       {{- 'products.product.inventory_out_of_stock' | t -}}
+                      </span>
                     {%- endif -%}
                   {%- endif -%}
                 {%- endif -%}
@@ -311,6 +318,30 @@
               {% render 'product-variant-picker', product: product, block: block, product_form_id: product_form_id %}
             {%- when 'buy_buttons' -%}
               {%- render 'buy-buttons', block: block, product: product, product_form_id: product_form_id, section_id: section.id, show_pickup_availability: true -%}
+            {%- when 'usp' -%}
+              <div class="product__usp">
+                {% for i in (1..6) %}
+                    {% assign icons = 'icon_' |append:i %}
+                    {% assign icon_settings = block.settings[icons] %}
+                    {% assign info = 'info_' |append:i %}
+                    {% assign info_settings = block.settings[info] %}
+                    {%- if icon_settings != blank -%}
+
+                    <div class="usp_ico">
+                      {%- if icon_settings != blank -%}
+                      {{
+                        icon_settings
+                        | image_url: width: 20
+                        | image_tag: loading: 'lazy', sizes: '100px', widths: '60'
+                      }}
+                    {%- endif -%}
+                      {%- if info_settings != blank -%}
+                    <span> {{info_settings}}</span>
+                      {%- endif -%}
+                    </div>
+                  {%- endif -%}
+                {% endfor %}
+              </div>
             {%- when 'rating' -%}
               {%- if product.metafields.reviews.rating.value != blank -%}
                 {% liquid
@@ -736,6 +767,73 @@
           "default": false,
           "label": "t:sections.main-product.blocks.buy_buttons.settings.show_gift_card_recipient.label",
           "info": "t:sections.main-product.blocks.buy_buttons.settings.show_gift_card_recipient.info"
+        }
+      ]
+    },
+    {
+      "type": "usp",
+      "name": "t:sections.main-product.blocks.usp.name",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "icon_1",
+          "label": "t:sections.main-product.blocks.usp.settings.icon.label"
+        },
+        {
+          "type": "richtext",
+          "id": "info_1",
+          "label": "t:sections.main-product.blocks.usp.settings.info.label"
+        },
+        {
+          "type": "image_picker",
+          "id": "icon_2",
+          "label": "t:sections.main-product.blocks.usp.settings.icon.label"
+        },
+        {
+          "type": "richtext",
+          "id": "info_2",
+          "label": "t:sections.main-product.blocks.usp.settings.info.label"
+        },
+        {
+          "type": "image_picker",
+          "id": "icon_3",
+          "label": "t:sections.main-product.blocks.usp.settings.icon.label"
+        },
+        {
+          "type": "richtext",
+          "id": "info_3",
+          "label": "t:sections.main-product.blocks.usp.settings.info.label"
+        },
+        {
+          "type": "image_picker",
+          "id": "icon_4",
+          "label": "t:sections.main-product.blocks.usp.settings.icon.label"
+        },
+        {
+          "type": "richtext",
+          "id": "info_4",
+          "label": "t:sections.main-product.blocks.usp.settings.info.label"
+        },
+        {
+          "type": "image_picker",
+          "id": "icon_5",
+          "label": "t:sections.main-product.blocks.usp.settings.icon.label"
+        },
+        {
+          "type": "richtext",
+          "id": "info_5",
+          "label": "t:sections.main-product.blocks.usp.settings.info.label"
+        },
+        {
+          "type": "image_picker",
+          "id": "icon_6",
+          "label": "t:sections.main-product.blocks.usp.settings.icon.label"
+        },
+        {
+          "type": "richtext",
+          "id": "info_6",
+          "label": "t:sections.main-product.blocks.usp.settings.info.label"
         }
       ]
     },

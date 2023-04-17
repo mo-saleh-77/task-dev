@@ -1,0 +1,6 @@
+.product__usp .usp_ico{
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    line-height:0;
+}

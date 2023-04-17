@@ -1966,6 +1966,17 @@
             }
           }
         },
+        "usp": {
+          "name": "USP",
+          "settings": {
+            "icon": {
+              "label": "Icon"
+            },
+            "info": {
+              "label": "Info"
+            }
+          }
+        },
         "pickup_availability": {
           "name": "Pickup availability"
         },

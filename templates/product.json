@@ -28,16 +28,33 @@
           "type": "quantity_selector",
           "settings": {}
         },
+        "66b40dff-3ac2-465f-8b12-3d5ba374c354": {
+          "type": "inventory",
+          "settings": {
+            "text_style": "body",
+            "inventory_threshold": 10,
+            "show_inventory_quantity": false
+          }
+        },
         "buy_buttons": {
           "type": "buy_buttons",
           "settings": {
-            "show_dynamic_checkout": true,
+            "show_dynamic_checkout": false,
             "show_gift_card_recipient": false
           }
         },
-        "description": {
-          "type": "description",
-          "settings": {}
+        "29fb6529-332c-4d47-8735-2d20b62e3701": {
+          "type": "usp",
+          "settings": {
+            "icon_1": "shopify:\/\/shop_images\/Fusia.png",
+            "info_1": "<p>info 1<\/p>",
+            "icon_2": "shopify:\/\/shop_images\/Blue.png",
+            "info_2": "<p>info 2<\/p>",
+            "info_3": "",
+            "info_4": "",
+            "info_5": "",
+            "info_6": ""
+          }
         },
         "share": {
           "type": "share",
@@ -52,8 +69,9 @@
         "price",
         "variant_picker",
         "quantity_selector",
+        "66b40dff-3ac2-465f-8b12-3d5ba374c354",
         "buy_buttons",
-        "description",
+        "29fb6529-332c-4d47-8735-2d20b62e3701",
         "share"
       ],
       "settings": {
